@@ -1,16 +1,24 @@
+import Home from 'pages/Home';
+import { Link, Route, Routes } from 'react-router-dom';
+
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/movies">movies</Link>
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/movies" element={<div>Movies</div>} />
+        <Route path="/movies/:movieId" element={<div>Movie info</div>} />
+      </Routes>
+    </>
   );
 };
