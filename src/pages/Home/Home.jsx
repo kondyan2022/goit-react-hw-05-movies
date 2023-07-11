@@ -9,7 +9,6 @@ const Home = () => {
     const getTrendingMovies = async () => {
       try {
         const { results } = await getTrending();
-        console.log(results);
         setTrendingList(results.map(({ id, title }) => ({ id, title })));
       } catch (error) {
         console.log(error);
@@ -20,7 +19,7 @@ const Home = () => {
 
   return (
     <>
-      <div> Trending movies </div>
+      <h1> Trending movies </h1>
       <MovieList movies={trendingList} path={'/movies/'} />
     </>
   );

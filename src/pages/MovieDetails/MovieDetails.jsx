@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { getMovieDetails } from 'utils/moviedb-api';
+import image from '../../noposter.png';
+import { BackLink, FilmCard } from './MovieDaetal.styled';
 
 const POSTER_IMAGE_PATH = 'https://image.tmdb.org/t/p/w342';
 
@@ -31,7 +33,7 @@ const MovieDetails = () => {
         setReleaseYear(release_date.slice(0, 4));
         setGenres(genres.map(({ name }) => name).join(' '));
         setOverview(overview);
-        setPosterImg(poster_path);
+        setPosterImg(poster_path ? POSTER_IMAGE_PATH + poster_path : image);
         setUserScore(Math.round(vote_average * 10));
       } catch (error) {
         console.log(error);
@@ -42,9 +44,9 @@ const MovieDetails = () => {
 
   return (
     <>
-      <Link to={backLocationRef.current}> Go back</Link>
-      <div>
-        {posterImg && <img src={POSTER_IMAGE_PATH + posterImg} alt={title} />}
+      <BackLink to={backLocationRef.current}> Go back</BackLink>
+      <FilmCard>
+        <img src={posterImg} alt={title} width="342" />
         <div>
           <h2>
             {title} ({releaseYear})
@@ -56,7 +58,7 @@ const MovieDetails = () => {
 
           <p>{genres}</p>
         </div>
-      </div>
+      </FilmCard>
       <ul>
         <li>
           <Link to="cast">cast</Link>
@@ -65,7 +67,9 @@ const MovieDetails = () => {
           <Link to="reviews">reviews</Link>
         </li>
       </ul>
-      <Outlet />
+      <Suspense fallback={<div>Loading sub...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

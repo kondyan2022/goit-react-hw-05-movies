@@ -1,9 +1,8 @@
+import CastItem from 'components/CastItem/CastItem';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-// import testCastList from 'testcast.json';
 import { getCasts } from 'utils/moviedb-api';
-
-const PROFILE_IMAGE_PATH = 'https://image.tmdb.org/t/p/w185';
+import { CastList } from './Cast.styled';
 
 const Cast = () => {
   const [castList, setCastList] = useState([]);
@@ -28,21 +27,16 @@ const Cast = () => {
     getCastList(movieId);
   }, [movieId]);
   return (
-    <ul>
+    <CastList>
       {castList.map(({ id, name, character, profile_path }) => (
-        <li key={id}>
-          {profile_path && (
-            <img
-              src={PROFILE_IMAGE_PATH + profile_path}
-              alt={name}
-              width="185"
-            />
-          )}
-          <p>{name}</p>
-          <p>Character: {character}</p>
-        </li>
+        <CastItem
+          key={id}
+          name={name}
+          character={character}
+          profile_path={profile_path}
+        />
       ))}
-    </ul>
+    </CastList>
   );
 };
 

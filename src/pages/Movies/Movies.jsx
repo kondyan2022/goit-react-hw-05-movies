@@ -5,7 +5,6 @@ import MovieList from 'components/MovieList/MovieList';
 import SearchForm from 'components/SearchForm/SearchForm';
 
 const Movies = () => {
-  // const [query, setQuery] = useState('');
   const [movieList, setMovieList] = useState([]);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,6 +38,8 @@ const Movies = () => {
     <>
       <SearchForm onSubmit={handleSubmit} queryString={query} />
       <MovieList movies={movieList} />
+      {query && movieList.length === 0 && <div>No matches. Try again.</div>}
+      {!query && <div>Please, input key words for search.</div>}
     </>
   );
 };

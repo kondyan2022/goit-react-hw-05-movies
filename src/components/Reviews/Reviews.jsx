@@ -1,3 +1,4 @@
+import ReviewsItem from 'components/ReviewsItem/ReviewsItem';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from 'utils/moviedb-api';
@@ -25,14 +26,16 @@ const Reviews = () => {
     getReviewsList(movieId);
   }, [movieId]);
   return (
-    <ul>
-      {reviewsList.map(({ id, author, content }) => (
-        <li key={id}>
-          <h3>Author: {author}</h3>
-          <p>{content}</p>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul>
+        {reviewsList.map(({ id, author, content }) => (
+          <ReviewsItem key={id} author={author} content={content} />
+        ))}
+      </ul>
+      {reviewsList.length === 0 && (
+        <div>We don't have any reviews for this movie.</div>
+      )}
+    </>
   );
 };
 export default Reviews;

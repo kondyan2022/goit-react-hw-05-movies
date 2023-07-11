@@ -15,19 +15,16 @@ export const getTrending = async () => {
 
 export const getCasts = async movieId => {
   const { data } = await axios.get(`movie/${movieId}/credits`);
-
   return data;
 };
 
 export const getReviews = async movieId => {
   const { data } = await axios.get(`movie/${movieId}/reviews`);
-
   return data;
 };
 
 export const getMovieDetails = async movieId => {
   const { data } = await axios.get(`movie/${movieId}`);
-  console.log(data);
   return data;
 };
 
@@ -41,6 +38,5 @@ export const getSearchMovies = async query => {
       region: 'US',
     },
   });
-  console.log(data);
   return data;
 };
