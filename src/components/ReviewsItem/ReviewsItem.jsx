@@ -1,4 +1,6 @@
-const ReviewsItem = ({ id, author, content }) => {
+import PropTypes from 'prop-types';
+
+const ReviewsItem = ({ author, content }) => {
   return (
     <li>
       <h3>Author: {author}</h3>
@@ -7,4 +9,8 @@ const ReviewsItem = ({ id, author, content }) => {
   );
 };
 
+ReviewsItem.propTypes = {
+  author: PropTypes.string,
+  content: PropTypes.string,
+};
 export default ReviewsItem;
